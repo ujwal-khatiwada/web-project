@@ -1,0 +1,142 @@
+:root {
+    --bgColor: rgb(136, 134, 134);
+    --fontColor: rgb(0, 0, 0);
+    --fontColorHover: #fff;
+    --sidebarBg: #fff;
+    --overlayColor: rgba(0, 0, 0, 0.5); /* Opaque overlay when sidebar is open */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: clamp(14px, 2vw, 16px); /* Slightly larger for better readability */
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.nav {
+    background-color: var(--bgColor);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between; /* Spread logo and button */
+    align-items: center;
+    height: 60px;
+}
+
+nav a {
+    height: 50px;
+    width: 50px;
+}
+nav a img {
+    height: 50px;
+    width: 50px;
+    max-width: 50px /* Ensures the image can't exceed its container */
+    max-height: 50px; /* Limits height */
+}
+
+.nav .link {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav .link a {
+    color: var(--fontColor);
+    text-decoration: none;
+    height: 100%;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav .link a:hover {
+    background-color: var(--fontColorHover);
+    color: var(--sidebarBg);
+}
+
+nav .link a:first-child{
+    margin-right: auto;
+}
+
+#sidebar, .open_sidebar, .close_sidebar {
+    display: none;
+    align-self: center;
+    justify-content: flex-end;
+}
+
+@media(max-width: 800px) {
+    /* .logo {
+        position: absolute;
+        left: 20px; /* Keep the logo on the left */
+    } */
+
+    .open_sidebar {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end; /* Ensures the button is aligned right */
+        position: absolute;
+        right: 20px; /* Position the menu button 20px from the right edge */
+        top: 15px;
+    }
+
+    svg {
+        fill: var(--fontColor);
+        transition: fill 0.3s ease;
+    }
+
+    .link {
+        flex-direction: column;
+        align-items: flex-end; /* Align the links to the right */
+        justify-content: flex-start;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        z-index: 2;
+        width: 70%;
+        height: 100vh;
+        background-color: var(--sidebarBg);
+        padding: 20px;
+        transition: right 0.75s ease-out, background-color 0.3s ease;
+    }
+
+    .link a {
+        width: 100%;
+        padding: 15px 0;
+        text-align: right; /* Text aligned to the right */
+    }
+
+    #sidebar:checked ~ .link {
+        right: 0;
+    }
+
+    #sidebar:checked ~ #overlay {
+        display: block;
+        background-color: var(--overlayColor);
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        z-index: 1;
+    }
+
+    #overlay {
+        display: none;
+    }
+
+    .close_sidebar {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        display: flex;
+    }
+}
